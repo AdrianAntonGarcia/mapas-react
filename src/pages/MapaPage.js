@@ -11,7 +11,9 @@ const puntoInicial = {
 };
 export const MapaPage = () => {
   const mapaDiv = useRef();
-  const [mapa, setMapa] = useState(null);
+  //   const [mapa, setMapa] = useState(null);
+  const mapa = useRef();
+
   const [coords, setCoords] = useState(puntoInicial);
 
   useEffect(() => {
@@ -21,22 +23,21 @@ export const MapaPage = () => {
       center: [puntoInicial.lng, puntoInicial.lat],
       zoom: puntoInicial.zoom,
     });
-
-    setMapa(map);
+    mapa.current = map;
   }, []);
 
   // Cuándo se mueve el mapa
   useEffect(() => {
-    mapa?.on('move', () => {
-      const { lng, lat } = mapa.getCenter();
+    mapa.current?.on('move', () => {
+      const { lng, lat } = mapa.current.getCenter();
       setCoords({
         lng: lng.toFixed(4),
         lat: lat.toFixed(4),
-        zoom: mapa.getZoom().toFixed(2),
+        zoom: mapa.current.getZoom().toFixed(2),
       });
     });
-    return mapa?.off('move');
-  }, [mapa]);
+    return mapa.current?.off('move');
+  }, []);
   return (
     <>
       <div className="info">
