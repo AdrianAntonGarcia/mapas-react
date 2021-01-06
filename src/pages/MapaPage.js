@@ -8,12 +8,18 @@ const puntoInicial = {
 };
 
 export const MapaPage = () => {
-  const { coords, setRef, nuevoMarcador$ } = useMapbox(puntoInicial);
+  const { coords, setRef, nuevoMarcador$, movimientoMarcador$ } = useMapbox(
+    puntoInicial
+  );
   useEffect(() => {
-    nuevoMarcador$.current.subscribe((marcador) => {
-      console.log('MapaPage: ' + marcador);
-    });
+    nuevoMarcador$.current.subscribe((marcador) => {});
   }, [nuevoMarcador$]);
+
+  useEffect(() => {
+    movimientoMarcador$.current.subscribe((marcador) => {
+      console.log(JSON.stringify(marcador));
+    });
+  }, [movimientoMarcador$]);
 
   return (
     <>

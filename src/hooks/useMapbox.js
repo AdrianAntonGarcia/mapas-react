@@ -82,11 +82,11 @@ export const useMapbox = (puntoInicial) => {
     };
   }, [agregarMarcador]);
   return {
+    agregarMarcador,
     coords,
     marcadores,
-    setRef,
-    agregarMarcador,
     nuevoMarcador$: nuevoMarcador,
     movimientoMarcador$: movimientoMarcador,
+    setRef,
   };
 };
