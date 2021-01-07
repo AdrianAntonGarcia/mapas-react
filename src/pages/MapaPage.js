@@ -31,7 +31,7 @@ export const MapaPage = () => {
   // Nuevo marcador
   useEffect(() => {
     nuevoMarcador$.current.subscribe((marcador) => {
-      socket.emit('marcador-nuevo', marcador);
+      socket.emit('marcador-nuevo', marcador, marcador.id);
     });
   }, [nuevoMarcador$, socket]);
 
@@ -45,9 +45,9 @@ export const MapaPage = () => {
   // Escuchar marcadores
   useEffect(() => {
     socket.on('marcador-nuevo', (marcador) => {
-      console.log(marcador);
+      agregarMarcador(marcador);
     });
-  }, [socket]);
+  }, [socket, agregarMarcador]);
 
   return (
     <>
